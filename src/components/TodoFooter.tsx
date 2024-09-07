@@ -1,11 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import classNames from 'classnames';
 import { Status } from '../types/Status';
-import {
-  DeletingTodosIdsContext,
-  ErrorContext,
-  TodosContext,
-} from '../providers/TodosProvider';
+import { TodosStateContext } from '../providers/TodosProvider';
 import { FocusContext } from '../providers/FocusProvider';
 import { deleteTodoItem } from '../utils/deleteTodoItem';
 
@@ -15,9 +11,8 @@ type Props = {
 };
 
 export const TodoAppFooter: React.FC<Props> = ({ status, onStatusChange }) => {
-  const { todos, setTodos } = useContext(TodosContext);
-  const { setErrorMessage } = useContext(ErrorContext);
-  const { setDeletingTodosIds } = useContext(DeletingTodosIdsContext);
+  const { todos, setTodos, setErrorMessage, setDeletingTodosIds } =
+    useContext(TodosStateContext);
   const { setFocus } = useContext(FocusContext);
 
   const remainingTodos = todos.filter(todo => !todo.completed).length;

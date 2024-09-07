@@ -5,13 +5,13 @@ import { TodoAppHeader } from './components/TodoHeader';
 import { TodoAppFooter } from './components/TodoFooter';
 import { ErrorNotification } from './components/ErrorNotification';
 import { TodoList } from './components/TodoList';
-import { TodosContext } from './providers/TodosProvider';
+import { TodosStateContext } from './providers/TodosProvider';
 import { USER_ID } from './utils/constants';
 import { Status } from './types/Status';
 import { FocusProvider } from './providers/FocusProvider';
 
 export const App: React.FC = () => {
-  const { todos } = useContext(TodosContext);
+  const { todos } = useContext(TodosStateContext);
   const [status, setStatus] = useState(Status.All);
 
   const filteredTodos = todos.filter(todo => {

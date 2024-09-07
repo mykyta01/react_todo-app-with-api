@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Todo } from '../types/Todo';
 import { TodoItem } from './TodoItem';
-import { TempTodoContext } from '../providers/TodosProvider';
+import { TodosStateContext } from '../providers/TodosProvider';
 
 type Props = {
   todos: Todo[];
 };
 
 export const TodoList: React.FC<Props> = ({ todos }) => {
-  const { tempTodo } = useContext(TempTodoContext);
+  const { tempTodo } = useContext(TodosStateContext);
 
   return (
     <section className="todoapp__main" data-cy="TodoList">

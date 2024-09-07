@@ -10,12 +10,7 @@ import React, {
 import classNames from 'classnames';
 import { Todo } from '../types/Todo';
 
-import {
-  DeletingTodosIdsContext,
-  ErrorContext,
-  TodosContext,
-  UpdatingTodosIdsContext,
-} from '../providers/TodosProvider';
+import { TodosStateContext } from '../providers/TodosProvider';
 import { FocusContext } from '../providers/FocusProvider';
 import { deleteTodoItem } from '../utils/deleteTodoItem';
 import { normalizeSpaces } from '../utils/normalize';
@@ -29,16 +24,16 @@ export const TodoItem: React.FC<Props> = ({ todo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(todo.title);
 
-  const { setTodos } = useContext(TodosContext);
-  const { setErrorMessage } = useContext(ErrorContext);
-  const { setFocus } = useContext(FocusContext);
-  const { deletingTodosIds, setDeletingTodosIds } = useContext(
-    DeletingTodosIdsContext,
-  );
-  const { updatingTodosIds, setUpdatingTodosIds } = useContext(
-    UpdatingTodosIdsContext,
-  );
+  const {
+    setTodos,
+    setErrorMessage,
+    deletingTodosIds,
+    setDeletingTodosIds,
+    updatingTodosIds,
+    setUpdatingTodosIds,
+  } = useContext(TodosStateContext);
 
+  const { setFocus } = useContext(FocusContext);
   const todoInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

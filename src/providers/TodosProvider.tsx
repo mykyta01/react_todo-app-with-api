@@ -3,57 +3,31 @@ import { Todo } from '../types/Todo';
 import { USER_ID } from '../utils/constants';
 import { getTodos } from '../api/todos';
 
-type TodosContextType = {
+type TodosStateContextType = {
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-};
-
-export const TodosContext = React.createContext<TodosContextType>({
-  todos: [] as Todo[],
-  setTodos: () => {},
-});
-
-type ErrorContextType = {
   errorMessage: string;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export const ErrorContext = React.createContext<ErrorContextType>({
-  errorMessage: '',
-  setErrorMessage: () => {},
-});
-
-type TempTodoContextType = {
   tempTodo: Todo | null;
   setTempTodo: React.Dispatch<React.SetStateAction<Todo | null>>;
-};
-
-export const TempTodoContext = React.createContext<TempTodoContextType>({
-  tempTodo: null,
-  setTempTodo: () => {},
-});
-
-type DeletingTodosIdsContextType = {
   deletingTodosIds: number[];
   setDeletingTodosIds: React.Dispatch<React.SetStateAction<number[]>>;
-};
-
-export const DeletingTodosIdsContext =
-  React.createContext<DeletingTodosIdsContextType>({
-    deletingTodosIds: [],
-    setDeletingTodosIds: () => {},
-  });
-
-type UpdatingTodosIdsContextType = {
   updatingTodosIds: number[];
   setUpdatingTodosIds: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
-export const UpdatingTodosIdsContext =
-  React.createContext<UpdatingTodosIdsContextType>({
-    updatingTodosIds: [],
-    setUpdatingTodosIds: () => {},
-  });
+export const TodosStateContext = React.createContext<TodosStateContextType>({
+  todos: [] as Todo[],
+  setTodos: () => {},
+  errorMessage: '',
+  setErrorMessage: () => {},
+  tempTodo: null,
+  setTempTodo: () => {},
+  deletingTodosIds: [],
+  setDeletingTodosIds: () => {},
+  updatingTodosIds: [],
+  setUpdatingTodosIds: () => {},
+});
 
 type Props = {
   children: React.ReactNode;
@@ -78,53 +52,32 @@ export const TodosProvider: React.FC<Props> = ({ children }) => {
     () => ({
       todos,
       setTodos,
-    }),
-    [todos, setTodos],
-  );
-
-  const errorValue = useMemo(
-    () => ({
       errorMessage,
       setErrorMessage,
-    }),
-    [errorMessage, setErrorMessage],
-  );
-
-  const tempTodoValue = useMemo(
-    () => ({
       tempTodo,
       setTempTodo,
-    }),
-    [tempTodo, setTempTodo],
-  );
-
-  const deletingTodosIdsValue = useMemo(
-    () => ({
       deletingTodosIds,
       setDeletingTodosIds,
-    }),
-    [deletingTodosIds, setDeletingTodosIds],
-  );
-
-  const updatingTodosIdsValue = useMemo(
-    () => ({
       updatingTodosIds,
       setUpdatingTodosIds,
     }),
-    [updatingTodosIds, setUpdatingTodosIds],
+    [
+      todos,
+      setTodos,
+      errorMessage,
+      setErrorMessage,
+      tempTodo,
+      setTempTodo,
+      deletingTodosIds,
+      setDeletingTodosIds,
+      updatingTodosIds,
+      setUpdatingTodosIds,
+    ],
   );
 
   return (
-    <TodosContext.Provider value={value}>
-      <ErrorContext.Provider value={errorValue}>
-        <TempTodoContext.Provider value={tempTodoValue}>
-          <DeletingTodosIdsContext.Provider value={deletingTodosIdsValue}>
-            <UpdatingTodosIdsContext.Provider value={updatingTodosIdsValue}>
-              {children}
-            </UpdatingTodosIdsContext.Provider>
-          </DeletingTodosIdsContext.Provider>
-        </TempTodoContext.Provider>
-      </ErrorContext.Provider>
-    </TodosContext.Provider>
+    <TodosStateContext.Provider value={value}>
+      {children}
+    </TodosStateContext.Provider>
   );
 };

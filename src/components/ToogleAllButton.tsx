@@ -1,11 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import classNames from 'classnames';
 
-import {
-  ErrorContext,
-  TodosContext,
-  UpdatingTodosIdsContext,
-} from '../providers/TodosProvider';
+import { TodosStateContext } from '../providers/TodosProvider';
 
 import { Todo } from '../types/Todo';
 import { updateTodoItem } from '../utils/updateTodoItem';
@@ -13,9 +9,8 @@ import { updateTodoItem } from '../utils/updateTodoItem';
 type Props = {};
 
 export const ToggleAllButton: React.FC<Props> = () => {
-  const { todos, setTodos } = useContext(TodosContext);
-  const { setUpdatingTodosIds } = useContext(UpdatingTodosIdsContext);
-  const { setErrorMessage } = useContext(ErrorContext);
+  const { todos, setTodos, setUpdatingTodosIds, setErrorMessage } =
+    useContext(TodosStateContext);
 
   const isAllCompleted = todos.every(todo => todo.completed);
 
@@ -63,7 +58,6 @@ export const ToggleAllButton: React.FC<Props> = () => {
   }, [setTodos, todos, setUpdatingTodosIds, setErrorMessage]);
 
   return (
-    // need to update all todos completed status onClick
     <button
       type="button"
       className={classNames('todoapp__toggle-all', {

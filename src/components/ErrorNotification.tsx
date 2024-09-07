@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { ErrorContext } from '../providers/TodosProvider';
+import { TodosStateContext } from '../providers/TodosProvider';
 
 export const ErrorNotification: React.FC = () => {
-  const { errorMessage, setErrorMessage } = useContext(ErrorContext);
+  const { errorMessage, setErrorMessage } = useContext(TodosStateContext);
   const [isVisible, setIsVisible] = useState(false);
   const [displayedError, setDisplayedError] = useState('');
 
@@ -26,12 +26,6 @@ export const ErrorNotification: React.FC = () => {
       }
     };
   }, [errorMessage, setErrorMessage]);
-
-  useEffect(() => {
-    return () => {
-      setIsVisible(false);
-    };
-  }, []);
 
   return (
     <div

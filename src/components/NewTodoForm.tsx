@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import {
-  ErrorContext,
-  TempTodoContext,
-  TodosContext,
-} from '../providers/TodosProvider';
-
+import { TodosStateContext } from '../providers/TodosProvider';
 import { normalizeSpaces } from '../utils/normalize';
 import { createTodo } from '../api/todos';
 import { USER_ID } from '../utils/constants';
@@ -15,9 +10,9 @@ export const NewTodoForm: React.FC = () => {
   const [todoTitle, setTodoTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { setErrorMessage } = useContext(ErrorContext);
-  const { setTodos } = useContext(TodosContext);
-  const { setTempTodo } = useContext(TempTodoContext);
+  const { setErrorMessage, setTodos, setTempTodo } =
+    useContext(TodosStateContext);
+
   const { inputRef, setFocus } = useContext(FocusContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
